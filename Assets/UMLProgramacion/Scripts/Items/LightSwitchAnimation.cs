@@ -5,16 +5,16 @@ namespace Items
 {
     public class LightSwitchAnimation : MonoBehaviour
     {
-        [Header("Open Tween animation")] 
+        [Header("Turn On Tween animation")] 
         [SerializeField] private Transform pivotPoint;
         [SerializeField] private Vector3 newPivotRotation;
         [Space]
-        [SerializeField] private Ease openEase;
-        [SerializeField] private float openTweenDuration;
+        [SerializeField] private Ease turnOnEase;
+        [SerializeField] private float turnOnTweenDuration;
     
-        [Header("Close Tween animation")]
-        [SerializeField] private Ease closeEase;
-        [SerializeField] private float closeTweenDuration;
+        [Header("Turn off Tween animation")]
+        [SerializeField] private Ease turnOffEase;
+        [SerializeField] private float turnOffTweenDuration;
 
         private Tween _rotateAroundPivotTween;
         private Quaternion _initialRotation;
@@ -26,12 +26,12 @@ namespace Items
         
         public void PlayTurnOnAnimation()
         {
-            RotateAroundPivot(newPivotRotation, openTweenDuration,openEase);
+            RotateAroundPivot(newPivotRotation, turnOnTweenDuration,turnOnEase);
         }
 
         public void PlayTurnOffAnimation()
         {
-            RotateAroundPivot(_initialRotation.eulerAngles, closeTweenDuration,closeEase);
+            RotateAroundPivot(_initialRotation.eulerAngles, turnOffTweenDuration,turnOffEase);
         }
 
         private void RotateAroundPivot(Vector3 newRotation, float tweenDuration, Ease ease)

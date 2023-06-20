@@ -1,5 +1,4 @@
-﻿using System;
-using Interfaces;
+﻿using Interfaces;
 using UnityEngine;
 
 namespace Items
@@ -25,6 +24,7 @@ namespace Items
             _lightSwitchAnimation.PlayTurnOnAnimation();
             _lightSwitchSound.PlayTurnOnSound();
             _isActive = true;
+            Debug.Log("Activate");
         }
 
         public void Deactivate()
@@ -32,6 +32,7 @@ namespace Items
             _lightSwitchAnimation.PlayTurnOffAnimation();
             _lightSwitchSound.PlayTurnOffSound();
             _isActive = false;
+            Debug.Log("Deactivate");
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Player
 {
     public class PlayerSwitchSystem : MonoBehaviour
     {
+        [SerializeField] private Transform camera;
         [SerializeField] private float raySpawnPositionY;
         [SerializeField] private float rayDistance;
 
@@ -19,10 +20,13 @@ namespace Player
 
         private void OnDrawGizmos()
         {
-            float newPositionY = transform.position.y + raySpawnPositionY;
-            Vector3 spawnPosition = new Vector3(transform.position.x, newPositionY, transform.position.z);
+            // float newPositionY = transform.position.y + raySpawnPositionY;
+            // Vector3 spawnPosition = new Vector3(transform.position.x, newPositionY, transform.position.z);
+            //
+            // Debug.DrawRay(spawnPosition, transform.forward * rayDistance, Color.green, 0.5f);
+            Vector3 spawnPosition = camera.position;
 
-            Debug.DrawRay(spawnPosition, transform.forward * rayDistance, Color.green, 0.5f);
+            Debug.DrawRay(spawnPosition, camera.forward * rayDistance, Color.green, 0.5f);
         }
         
         private void OnInteractButtonPressed(InputAction.CallbackContext context)
@@ -43,10 +47,15 @@ namespace Player
 
         private void RayCastToSwitchableObject()
         {
-            float newPositionY = transform.position.y + raySpawnPositionY;
-            Vector3 spawnPosition = new Vector3(transform.position.x, newPositionY, transform.position.z);
+            // float newPositionY = transform.position.y + raySpawnPositionY;
+            // Vector3 spawnPosition = new Vector3(transform.position.x, newPositionY, transform.position.z);
 
-            if (Physics.Raycast(spawnPosition, transform.forward, out var hitInfo,
+            Vector3 spawnPosition = camera.position;
+            
+            // if (Physics.Raycast(spawnPosition, transform.forward, out var hitInfo,
+            //         rayDistance))
+
+            if (Physics.Raycast(spawnPosition, camera.forward, out var hitInfo,
                     rayDistance))
             {
                 if (hitInfo.collider.TryGetComponent<ISwitchable>(out var item))
