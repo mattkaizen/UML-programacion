@@ -1,6 +1,6 @@
 ﻿namespace Items
 {
-    public enum ElectricityState
+    public enum PowerState
     {
         On,
         Off,

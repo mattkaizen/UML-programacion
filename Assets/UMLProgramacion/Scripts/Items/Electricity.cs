@@ -1,10 +1,8 @@
-﻿using System;
-using Interfaces;
-using UnityEngine;
+﻿using Interfaces;
 
 namespace Items
 {
-    public class Electricity : MonoBehaviour, IElectricitySource, ISwitchable
+    public class Electricity : PowerSource, ISwitchable
     {
         public bool IsActive
         {
@@ -12,33 +10,41 @@ namespace Items
         }
 
         private bool _isActive;
-        private ElectricityState _currentState;
+        private PowerState _currentState;
 
         private void Awake()
         {
-            _currentState = ElectricityState.Faulty;
+            _currentState = PowerState.Faulty;
         }
 
-        public ElectricityState GetStatus()
+        public override PowerState GetStatus()
         {
             return _currentState;
         }
 
-        public bool IsFunctional()
+        public override bool HasEnergy()
         {
-            return _currentState != ElectricityState.Faulty;
+            if (_currentState == PowerState.On)
+                return true;
+
+            return false;
+        }
+
+        public override bool IsFunctional()
+        {
+            return _currentState != PowerState.Faulty;
         }
 
         public void Activate()
         {
             _isActive = true;
-            _currentState = ElectricityState.On;
+            _currentState = PowerState.On;
         }
 
         public void Deactivate()
         {
             _isActive = false;
-            _currentState = ElectricityState.Off;
+            _currentState = PowerState.Off;
         }
     }
 }

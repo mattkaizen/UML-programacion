@@ -4,7 +4,7 @@ namespace Interfaces
 {
     public interface IElectricitySource
     {
-        ElectricityState GetStatus();
+        PowerState GetStatus();
         bool IsFunctional();
     }
 }
