@@ -8,10 +8,7 @@ namespace Items
     [RequireComponent(typeof(LightSwitchAnimation), typeof(LightSwitchSound))]
     public class LightSwitchObject : MonoBehaviour, ISwitchable
     {
-        public bool IsActive
-        {
-            get => isActive;
-        }
+        public bool IsActive => isActive;
 
         [SerializeField] private bool isActive;
         [SerializeField] private Light lightBulb;

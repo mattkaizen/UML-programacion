@@ -5,24 +5,22 @@ namespace Items
 {
     public class Electricity : PowerSource, ISwitchable
     {
-        public bool IsActive
+        public bool IsActive => isActive;
+
+        public override PowerState CurrentState
         {
-            get => isActive;
+            get => _currentState;
+            set => _currentState = value;
         }
 
         [SerializeField] private bool isActive;
-        private PowerState _currentState;
+        [SerializeField] private PowerState _currentState;
 
         private void Awake()
         {
             _currentState = PowerState.On;
         }
 
-
-        public override PowerState GetStatus()
-        {
-            return _currentState;
-        }
 
         public override bool HasEnergy()
         {
@@ -34,19 +32,33 @@ namespace Items
 
         public override bool IsFunctional()
         {
-            return _currentState != PowerState.Faulty;
+            if (_currentState == PowerState.Faulty || _currentState == PowerState.FaultyOff )
+            {
+                return false;
+            }
+            return true;
         }
 
         public void Activate()
         {
-            isActive = true;
-            _currentState = PowerState.On;
+            if (IsFunctional())
+            {
+                isActive = true;
+                _currentState = PowerState.On;
+            }
         }
 
         public void Deactivate()
         {
-            isActive = false;
-            _currentState = PowerState.Off;
+            if (IsFunctional())
+            {
+                isActive = false;
+                _currentState = PowerState.Off;
+            }
+            else
+            {
+                _currentState = PowerState.FaultyOff;
+            }
         }
     }
 }

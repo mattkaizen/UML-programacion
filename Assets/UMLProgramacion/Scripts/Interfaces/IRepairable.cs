@@ -4,9 +4,9 @@ namespace Interfaces
 {
     public interface IRepairable
     {
-        
-        ItemData Data { get; }
+        ItemData RepairsWithItem { get; }
+
         bool IsRepaired { get; }
-        void Repair();
+        void TryRepair(ItemData item);
     }
 }

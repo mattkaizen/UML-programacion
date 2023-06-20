@@ -30,12 +30,24 @@ namespace Player
         {
             RayCastToRepairableItem();
         }
-        public void TryRepair(IRepairable item)
+
+        public void TryRepairWithAvailableItem(IRepairable item)
         {
-            if (!item.IsRepaired && _playerInventory.GetItem(item.Data))
+            if (!item.IsRepaired)
             {
-                item.Repair();
-                _playerInventory.Items.Remove(item.Data);
+                var availableItemInformation = _playerInventory.Items;
+
+                foreach (var data in availableItemInformation)
+                {
+                    if (item.IsRepaired)
+                    {
+                        _playerInventory.Items.Remove(item.RepairsWithItem);
+                        break;
+                    }
+
+                    var key = data.Key;
+                    item.TryRepair(item.RepairsWithItem);
+                }
             }
         }
 
@@ -47,7 +59,7 @@ namespace Player
             {
                 if (hitInfo.collider.TryGetComponent<IRepairable>(out var item))
                 {
-                    TryRepair(item);
+                    TryRepairWithAvailableItem(item);
                 }
             }
         }
