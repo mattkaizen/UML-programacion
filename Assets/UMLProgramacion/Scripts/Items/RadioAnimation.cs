@@ -19,7 +19,7 @@ namespace Items
             if (objectToTween == null)
                 return;
 
-            _scaleTween = objectToTween.transform.DOShakeScale(scaleTweenDuration, scaleTweenStrength)
+            _scaleTween = objectToTween.transform.DOShakeScale(scaleTweenDuration, scaleTweenStrength, 10, 90, true, ShakeRandomnessMode.Harmonic)
                 .SetEase(scaleTweenEase)
                 .SetLoops(-1);
         }
@@ -27,7 +27,7 @@ namespace Items
         public void StopOnAnimation()
         {
             if (_scaleTween != null)
-                _scaleTween.PlayBackwards();
+                _scaleTween.Kill();
         }
     }
 }

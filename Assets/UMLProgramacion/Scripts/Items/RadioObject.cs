@@ -10,7 +10,7 @@ namespace Items
     public class RadioObject : MonoBehaviour, ISwitchable
     {
         public ItemData ItemData => itemData;
-        public bool IsActive { get; }
+        public bool IsActive { get => isActive; }
 
         [SerializeField] private ItemData itemData;
         [SerializeField] private PowerSource powerSource;
@@ -49,7 +49,8 @@ namespace Items
             while (true)
             {
                 yield return new WaitWhile(powerSource.HasEnergy);
-                Deactivate();
+                _animation.StopOnAnimation();
+                _sound.StopSound();
                 yield return new WaitUntil(powerSource.HasEnergy);
                 if (isActive)
                     Activate();
