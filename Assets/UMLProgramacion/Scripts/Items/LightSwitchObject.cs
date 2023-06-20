@@ -8,10 +8,12 @@ namespace Items
     {
         public bool IsActive { get => _isActive; }
 
-        private bool _isActive;
+        [SerializeField] private Light lightBulb; 
 
         private LightSwitchAnimation _lightSwitchAnimation;
         private LightSwitchSound _lightSwitchSound;
+        private bool _isActive;
+
 
         private void Awake()
         {
@@ -23,16 +25,22 @@ namespace Items
         {
             _lightSwitchAnimation.PlayTurnOnAnimation();
             _lightSwitchSound.PlayTurnOnSound();
+            SetLight(true);
             _isActive = true;
-            Debug.Log("Activate");
         }
 
         public void Deactivate()
         {
             _lightSwitchAnimation.PlayTurnOffAnimation();
             _lightSwitchSound.PlayTurnOffSound();
+            SetLight(false);
             _isActive = false;
-            Debug.Log("Deactivate");
+        }
+
+        private void SetLight(bool state)
+        {
+            if (lightBulb != null)
+                lightBulb.enabled = state;
         }
     }
 }

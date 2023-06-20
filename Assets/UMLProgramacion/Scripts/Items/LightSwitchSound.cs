@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Items
 {
+    [RequireComponent(typeof(AudioSource))]
     public class LightSwitchSound : MonoBehaviour
     {
         [SerializeField] AudioClip _turnOnClip;
