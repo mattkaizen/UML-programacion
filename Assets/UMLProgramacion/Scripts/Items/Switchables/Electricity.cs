@@ -18,6 +18,7 @@ namespace Items
             _currentState = PowerState.On;
         }
 
+
         public override PowerState GetStatus()
         {
             return _currentState;

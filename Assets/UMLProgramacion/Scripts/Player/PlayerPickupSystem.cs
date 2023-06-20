@@ -4,16 +4,19 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
-    public class PlayerSwitchSystem : MonoBehaviour
+    [RequireComponent(typeof(PlayerInventory))]
+    public class PlayerPickupSystem : MonoBehaviour
     {
         [SerializeField] private Transform camera;
         [SerializeField] private float rayDistance;
 
         private PlayerInput _playerInput;
+        private PlayerInventory _playerInventory;
 
         private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
+            _playerInventory = GetComponent<PlayerInventory>();
             _playerInput.PlayerControls.Interact.performed += OnInteractButtonPressed;
         }
 
@@ -25,29 +28,23 @@ namespace Player
         
         private void OnInteractButtonPressed(InputAction.CallbackContext context)
         {
-            RayCastToSwitchableObject();
+            TryPickup();
         }
-        public void Toggle(ISwitchable item)
+        public void Pickup(IPickable item)
         {
-            if (item.IsActive)
-            {
-                item.Deactivate();
-            }
-            else
-            {
-                item.Activate();
-            }
+            _playerInventory.AddItem(item.Data);
+            item.Pickup();
         }
 
-        private void RayCastToSwitchableObject()
+        private void TryPickup()
         {
             Vector3 spawnPosition = camera.position;
             if (Physics.Raycast(spawnPosition, camera.forward, out var hitInfo,
                     rayDistance))
             {
-                if (hitInfo.collider.TryGetComponent<ISwitchable>(out var item))
+                if (hitInfo.collider.TryGetComponent<IPickable>(out var item))
                 {
-                    Toggle(item);
+                    Pickup(item);
                 }
             }
         }

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5663064531e94f6f9e4bfbfedf290701, type: 3}
+  m_Name: BatteryData
+  m_EditorClassIdentifier: 
+  _id: 0
+  currentName: Battery
+  currentPrefab: {fileID: 5086530764990169399, guid: b313f96238e750d46a3514da902d860f,
+    type: 3}

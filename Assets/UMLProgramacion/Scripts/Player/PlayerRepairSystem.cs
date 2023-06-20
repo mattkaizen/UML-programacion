@@ -4,16 +4,19 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
-    public class PlayerSwitchSystem : MonoBehaviour
+    [RequireComponent(typeof(PlayerInventory))]
+    public class PlayerRepairSystem : MonoBehaviour
     {
         [SerializeField] private Transform camera;
         [SerializeField] private float rayDistance;
 
         private PlayerInput _playerInput;
+        private PlayerInventory _playerInventory;
 
         private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
+            _playerInventory = GetComponent<PlayerInventory>();
             _playerInput.PlayerControls.Interact.performed += OnInteractButtonPressed;
         }
 
@@ -25,29 +28,26 @@ namespace Player
         
         private void OnInteractButtonPressed(InputAction.CallbackContext context)
         {
-            RayCastToSwitchableObject();
+            RayCastToRepairableItem();
         }
-        public void Toggle(ISwitchable item)
+        public void TryRepair(IRepairable item)
         {
-            if (item.IsActive)
+            if (!item.IsRepaired && _playerInventory.GetItem(item.Data))
             {
-                item.Deactivate();
-            }
-            else
-            {
-                item.Activate();
+                item.Repair();
+                _playerInventory.Items.Remove(item.Data);
             }
         }
 
-        private void RayCastToSwitchableObject()
+        private void RayCastToRepairableItem()
         {
             Vector3 spawnPosition = camera.position;
             if (Physics.Raycast(spawnPosition, camera.forward, out var hitInfo,
                     rayDistance))
             {
-                if (hitInfo.collider.TryGetComponent<ISwitchable>(out var item))
+                if (hitInfo.collider.TryGetComponent<IRepairable>(out var item))
                 {
-                    Toggle(item);
+                    TryRepair(item);
                 }
             }
         }
