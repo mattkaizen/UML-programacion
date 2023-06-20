@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Repairables
 {
     [RequireComponent(typeof(ElectricityPanelSound), typeof(ElectricityPanelAnimation))]
-    public class ElectricityPanel : MonoBehaviour, IRepairable
+    public class ElectricityPanelObject : MonoBehaviour, IRepairable
     {
         public ItemData RepairsWithItem => repairsWithItem;
         public bool IsRepaired => _isRepaired;

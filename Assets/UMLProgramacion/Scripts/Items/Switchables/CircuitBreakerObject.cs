@@ -6,10 +6,7 @@ namespace Items
     [RequireComponent(typeof(CircuitBreakerAnimation), typeof(CircuitBreakerSound))]
     public class CircuitBreakerObject : MonoBehaviour, ISwitchable
     {
-        public bool IsActive
-        {
-            get => isActive;
-        }
+        public bool IsActive => isActive;
 
         [SerializeField] private bool isActive;
 
