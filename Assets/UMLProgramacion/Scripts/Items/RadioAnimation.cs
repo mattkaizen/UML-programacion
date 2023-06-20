@@ -20,7 +20,8 @@ namespace Items
                 return;
 
             _scaleTween = objectToTween.transform.DOShakeScale(scaleTweenDuration, scaleTweenStrength)
-                .SetEase(scaleTweenEase);
+                .SetEase(scaleTweenEase)
+                .SetLoops(-1);
         }
 
         public void StopOnAnimation()

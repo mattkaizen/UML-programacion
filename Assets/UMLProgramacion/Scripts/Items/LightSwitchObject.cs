@@ -10,13 +10,13 @@ namespace Items
     {
         public bool IsActive
         {
-            get => _isActive;
+            get => isActive;
         }
 
-        [SerializeField] private bool _isActive;
+        [SerializeField] private bool isActive;
         [SerializeField] private Light lightBulb;
 
-        [SerializeField] private PowerSource electricity;
+        [SerializeField] private PowerSource powerSource;
         private LightSwitchAnimation _lightSwitchAnimation;
         private LightSwitchSound _lightSwitchSound;
 
@@ -34,23 +34,27 @@ namespace Items
 
         public void Activate()
         {
-            _isActive = true;
+            isActive = true;
             _lightSwitchAnimation.PlayTurnOnAnimation();
             _lightSwitchSound.PlayTurnOnSound();
-            SetLight(true);
+
+            if (powerSource != null && powerSource.HasEnergy())
+                SetLight(true);
         }
 
         public void Deactivate()
         {
-            _isActive = false;
+            isActive = false;
             _lightSwitchAnimation.PlayTurnOffAnimation();
             _lightSwitchSound.PlayTurnOffSound();
-            SetLight(false);
+
+            if (powerSource != null && powerSource.HasEnergy())
+                SetLight(false);
         }
 
         private void SetLight(bool state)
         {
-            if (lightBulb != null && electricity != null && electricity.HasEnergy())
+            if (lightBulb != null)
                 lightBulb.enabled = state;
         }
 
@@ -58,9 +62,11 @@ namespace Items
         {
             while (true)
             {
-                yield return new WaitWhile(electricity.HasEnergy);
+                yield return new WaitWhile(powerSource.HasEnergy);
                 SetLight(false);
-                yield return new WaitUntil(electricity.HasEnergy);
+                yield return new WaitUntil(powerSource.HasEnergy);
+                if (isActive)
+                    SetLight(true);
             }
         }
     }

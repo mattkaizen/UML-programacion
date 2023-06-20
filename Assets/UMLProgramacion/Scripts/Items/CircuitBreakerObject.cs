@@ -7,12 +7,12 @@ namespace Items
     [RequireComponent(typeof(CircuitBreakerAnimation), typeof(CircuitBreakerSound))]
     public class CircuitBreakerObject : MonoBehaviour, ISwitchable
     {
-        public bool IsActive { get => _isActive; }
+        public bool IsActive { get => isActive; }
+        [SerializeField] private bool isActive;
 
         private ISwitchable _switchable; 
         private CircuitBreakerAnimation _circuitBreakerAnimation; 
         private CircuitBreakerSound _circuitBreakerSound; 
-        private bool _isActive;
 
         private void Awake()
         {
@@ -23,12 +23,18 @@ namespace Items
 
         public void Activate()
         {
+            _circuitBreakerAnimation.PlayTurnOnAnimation();
+            _circuitBreakerSound.PlayTurnOnSound();
             _switchable.Activate();
+            isActive = true;
         }
 
         public void Deactivate()
         {
+            _circuitBreakerAnimation.PlayTurnOffAnimation();
+            _circuitBreakerSound.PlayTurnOffSound();
             _switchable.Deactivate();
+            isActive = false;
         }
     }
 }

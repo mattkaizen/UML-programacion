@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using UnityEngine;
 
 namespace Items
 {
@@ -6,15 +7,15 @@ namespace Items
     {
         public bool IsActive
         {
-            get => _isActive;
+            get => isActive;
         }
 
-        private bool _isActive;
+        [SerializeField] private bool isActive;
         private PowerState _currentState;
 
         private void Awake()
         {
-            _currentState = PowerState.Faulty;
+            _currentState = PowerState.On;
         }
 
         public override PowerState GetStatus()
@@ -37,13 +38,13 @@ namespace Items
 
         public void Activate()
         {
-            _isActive = true;
+            isActive = true;
             _currentState = PowerState.On;
         }
 
         public void Deactivate()
         {
-            _isActive = false;
+            isActive = false;
             _currentState = PowerState.Off;
         }
     }

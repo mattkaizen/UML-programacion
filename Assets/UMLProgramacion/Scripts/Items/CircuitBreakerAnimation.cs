@@ -26,12 +26,12 @@ namespace Items
         
         public void PlayTurnOnAnimation()
         {
-            RotateAroundPivot(newPivotRotation, turnOnTweenDuration,turnOnEase);
+            RotateAroundPivot(_initialRotation.eulerAngles, turnOnTweenDuration,turnOnEase);
         }
 
         public void PlayTurnOffAnimation()
         {
-            RotateAroundPivot(_initialRotation.eulerAngles, turnOffTweenDuration,turnOffEase);
+            RotateAroundPivot(newPivotRotation, turnOffTweenDuration,turnOffEase);
         }
 
         private void RotateAroundPivot(Vector3 newRotation, float tweenDuration, Ease ease)
