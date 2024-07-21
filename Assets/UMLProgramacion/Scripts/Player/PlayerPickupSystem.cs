@@ -8,6 +8,7 @@ namespace Player
     public class PlayerPickupSystem : MonoBehaviour
     {
         [SerializeField] private Transform camera;
+        [SerializeField] private InputReaderData inputReader;
         [SerializeField] private float rayDistance;
 
         private PlayerInput _playerInput;
@@ -15,9 +16,11 @@ namespace Player
 
         private void Awake()
         {
-            _playerInput = GetComponent<PlayerInput>();
+            // _playerInput = GetComponent<PlayerInput>();
+            // _playerInput.PlayerControls.Interact.performed += OnInteract;
+
+            inputReader.Interacted += OnInteract;
             _playerInventory = GetComponent<PlayerInventory>();
-            _playerInput.PlayerControls.Interact.performed += OnInteractButtonPressed;
         }
 
         private void OnDrawGizmos()
@@ -25,8 +28,11 @@ namespace Player
             Vector3 spawnPosition = camera.position;
             Debug.DrawRay(spawnPosition, camera.forward * rayDistance, Color.green, 0.5f);
         }
-        
-        private void OnInteractButtonPressed(InputAction.CallbackContext context)
+        // private void OnInteract(InputAction.CallbackContext context)
+        // {
+        //     TryPickup();
+        // }
+        private void OnInteract()
         {
             TryPickup();
         }

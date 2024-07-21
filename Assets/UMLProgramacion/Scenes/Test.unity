@@ -560,6 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 19544659}
+  inputReader: {fileID: 11400000, guid: e154517dc72159a488ae03422cfb2b2f, type: 2}
   rayDistance: 1.25
 --- !u!114 &352096470
 MonoBehaviour:
@@ -587,6 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 19544659}
+  inputReader: {fileID: 11400000, guid: e154517dc72159a488ae03422cfb2b2f, type: 2}
   rayDistance: 1.25
 --- !u!1 &396135223
 GameObject:
